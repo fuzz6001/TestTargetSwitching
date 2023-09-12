@@ -24,6 +24,10 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
+    exe.addModule("console", b.createModule(.{
+        .source_file = .{ .path = if (target.isWindows()) "src/console/windows.zig" else "src/console/default.zig" },
+    }));
+
     // This declares intent for the executable to be installed into the
     // standard location when the user invokes the "install" step (the default
     // step when running `zig build`).
